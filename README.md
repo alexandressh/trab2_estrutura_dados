@@ -6,7 +6,8 @@ ABB
 (V) arrumar leitura do arquivo de entrada (por enquanto hardcoded)  
 (-) precisa de mais testes  
 (-) precisa melhorar o metodo de 'busca de valores'  
-(-) remover comentarios e printf apos finalizacao  
+(-) remover comentarios e printf apos finalizacao 
+(-) remover métodos não utilizados (por exemplo, método remove)
 (-) teste com tempo  
   
   
@@ -19,6 +20,7 @@ AVL
 (V) arrumar leitura do arquivo de entrada (por enquanto hardcoded)  
 (-) precisa de mais testes  
 (-) precisa melhorar o metodo de 'busca de valores'  
-(-) remover comentarios e printf apos finalizacao  
+(-) remover comentarios e printf apos finalizacao 
+(-) remover métodos não utilizados (por exemplo, método remove)
 (-) teste com tempo  
   
