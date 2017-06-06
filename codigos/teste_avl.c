@@ -6,109 +6,69 @@
 
 int main() {
 	// Variáveis para controle da duracao da ordenação
-	int quantidade_entradas=0, casos_de_busca=0, valor=0, cont=0, valorNegativo=0;
-	char ch;
+	int quantidade_entradas=0,
+			casos_de_busca=0,
+			valor=0,
+			maior=0,
+			menor=0;
+
 	Arvore avl;
-	FILE *arq;
 
-	/*INICIALIZACAO*/
-	char fileName[99];
-	//scanf("%s", fileName);
-	//arq = fopen(fileName, "r");
-	arq = fopen ("teste.in", "r");
-
-	//printf("Teste AVL\n");
+	//printf("Teste avl\n");
 	cria_arvore(&avl);
 	//printf("arvore iniciada\n");
+
 	/*TIMER*/
 	struct timeval start, end;
 	long long mtimeDim, mtimeEst, seconds, useconds;
-	
-	if (arq == NULL) {
-	   printf ("Houve um erro ao abrir o arquivo.\n");
-	   return 1;
-	}
-	//printf("Arquivo encontrado\n");
-	while((ch=fgetc(arq))!= EOF) {
+
+	while(1) {
 		cria_arvore(&avl);
-		quantidade_entradas=0; casos_de_busca=0; valor=0; cont=0;valorNegativo=0;
-		while(ch != ' ') { //QUANTIDADE DE ENTRADAS / NOHS
-			quantidade_entradas = (quantidade_entradas * 10) + (ch - '0');
-			ch=fgetc(arq);
-		}
+		scanf("%d", &quantidade_entradas);
 		printf("Quantidade de entradas: %d\n", quantidade_entradas);
-		while(ch != '\n') { //QUANTIDADE DE CASOS DE TESTE
-			if(ch != ' ')
-				casos_de_busca = (casos_de_busca * 10) + (ch - '0');
-			ch=fgetc(arq);
-		} 		
+
+		scanf("%d", &casos_de_busca);
 		printf("Casos de busca: %d\n", casos_de_busca);
+
 		//printf("Iniciando insercao...\n");
-		if(quantidade_entradas != 0) {
-			cont = quantidade_entradas-1;
-			ch=fgetc(arq);
-			while(ch != '\n') {
-				if(ch == '-') {
-					valorNegativo = 1;
-				} else if(ch != ' ') {
-					valor = (valor * 10) + (ch - '0');
-				} else {
-					//printf("inserindo valor: %d\n", valor);
-					insere(&avl, valorNegativo==1 ? valor*(-1) : valor);
-					cont--; valor = 0; valorNegativo = 0;
-				}
-				ch=fgetc(arq);
-				if(ch == '\n' && cont != 0) {
-					//printf("inserindo valor: %d\n", valor);
-					insere(&avl, valorNegativo==1 ? valor*(-1) : valor);
-					cont--; valor = 0; valorNegativo = 0;
-					ch=fgetc(arq); 
-				}
-			}
-			//printf("inserindo valor: %d\n", valor);
-			insere(&avl, valorNegativo==1 ? valor*(-1) : valor); //INSERINDO ULTIMO VALOR
-			valor = 0; valorNegativo = 0;
-			
+		//Fim da leitura, break while e retorna
+		if(quantidade_entradas == 0 && casos_de_busca == 0)
+			break;
+
+		while(quantidade_entradas > 0) {
+				scanf("%d", &valor);
+				//printf("inserindo valor: %d\n", valor);
+				insere(&avl, valor);
+				quantidade_entradas--;
+		}
+
 			//printf("no raiz = %d", avl->info);
-			printf("\n"); inorder(avl); printf("\n");
-			if(verifica(avl)) { 
-				printf("eh uma arvore de busca\n");
-			} else {
-				printf("Oops...nao eh uma arvore de busca!!!\n");
-			}
-			
-			
+		printf("\n"); inorder(avl); printf("\n");
+
+		if(verifica(avl)) {
+			printf("eh uma arvore de busca\n");
+		} else {
+			printf("Oops...nao eh uma arvore de busca!!!\n");
+		}
+
 			/*INICIANDO BUSCAS*/
 			//printf("insercao terminada, iniciando casos de busca\n");
-			for(int i=0; i < casos_de_busca; i++) {
-				ch=fgetc(arq);
-				int menor=0, maior=0;
-				while(ch != ' ') {
-					if(ch == '-') {
-						valorNegativo = 1;
-					} else if(ch != ' ') {
-						menor = (menor * 10) + (ch - '0');
-					}
-					ch=fgetc(arq);
-				}
-				while(ch != '\n') {
-					if(ch == '-') {
-						valorNegativo = 1;
-					} else if(ch != ' ') {
-						maior = (maior * 10) + (ch - '0');
-					}
-					ch=fgetc(arq);
-				}
-				printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
-				busca_por_intervalo(avl, menor, maior); //decidir retorno da funcao e exibir antes da proxima iteração do for
+		for(int i=0; i < casos_de_busca; i++) {
+			scanf("%d", &menor);
+			scanf("%d", &maior);
+
+			if(menor > maior) {
+				int tmp = menor;
+				menor = maior;
+				maior = tmp;
 			}
-			
-			printf("\n");				
-		} else {
-			//printf("\n FIM DO ARQUIVO");
-			break;
+
+			printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
+			busca_por_intervalo(avl, menor, maior); //decidir retorno da funcao e exibir antes da proxima iteração do for
 		}
-	} 
-	fclose (arq);
+
+			printf("\n");
+		}
+
 	return 0;
 }
