@@ -85,7 +85,7 @@ int insere(Arvore *p, int chave) {
 /* Retorna 0 se a chave for repetida */
 /* Versão não recursiva */
 int  n_rec_insere(Arvore *p, int chave) {
-	return;
+	return 0;
 }
 
 
@@ -131,15 +131,15 @@ int _verifica(Arvore p, int min, int max);
 int verifica(Arvore p) {
 	return _verifica(p, INT_MIN, INT_MAX);
 }
- 
-int _verifica(Arvore p, int min, int max) { 
-	if (p == NULL) 
+
+int _verifica(Arvore p, int min, int max) {
+	if (p == NULL)
 		return 1;
-	if (p->info < min || p->info > max) 
-		return 0; 
+	if (p->info < min || p->info > max)
+		return 0;
 
 	return _verifica(p->esq, min, p->info-1) && _verifica(p->dir, p->info+1, max);
-} 
+}
 
 int busca_por_intervalo(Arvore p, int min, int max) {
 	if (p != NULL) {
