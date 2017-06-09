@@ -1,5 +1,5 @@
 /*
- * Árvores binárias de busca.
+ * ï¿½rvores binï¿½rias de busca.
  */
 
 #ifndef _ABB
@@ -13,35 +13,22 @@ typedef struct No {
 
 typedef No* Arvore;
 
-void cria_arvore(Arvore *p);
-
 No *arv(elem_t c, No* esq, No* dir);
+
+void cria_arvore(Arvore *p);
 
 void inorder(Arvore p);
 
-/* Retorna 1 se a chave for encontrada */
-int busca (Arvore p, int chave);
-
-/* Retorna 1 se a chave for encontrada */
-int n_rec_busca(Arvore p, int chave);
-
 /* Retorna 0 se a chave for repetida */
-int  insere(Arvore *p, int chave);
+int insere(Arvore *p, int chave);
 
-/* Retorna 0 se a chave for repetida */
-/* Versão não recursiva */
-int  n_rec_insere(Arvore *p, int chave);
-
-/* Retorna 0 se a chave não for encontrada */
-int remove_arv(Arvore *p, int chave);
-
-/* Verifica se p é uma árvore de busca */
+/* Verifica se p ï¿½ uma ï¿½rvore de busca */
 int verifica(Arvore p);
+int _verifica(Arvore p, int min, int max);
 
-/* Verifica se p é uma árvore de busca */
-int n_rec_verifica(Arvore p);
+/* Retorna todos os nohs com valores entre min e max dentro da ï¿½rvore p*/
+int busca_por_intervalo(Arvore p, int min, int max, elem_t intervalo []);
 
-/* Retorna todos os nohs com valores entre min e max dentro da árvore p*/
-int busca_por_intervalo(Arvore p, int min, int max);
+int retorn_ultima_posicao(elem_t  vetor[]);
 
 #endif

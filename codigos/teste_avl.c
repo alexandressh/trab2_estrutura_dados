@@ -40,9 +40,10 @@ int main() {
 				//printf("inserindo valor: %d\n", valor);
 				insere(&avl, valor);
 				quantidade_entradas--;
+				// printf("no raiz = %d", avl->info);
 		}
 
-			//printf("no raiz = %d", avl->info);
+
 		printf("\n"); inorder(avl); printf("\n");
 
 		if(verifica(avl)) {
