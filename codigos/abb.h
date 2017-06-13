@@ -11,6 +11,11 @@ typedef struct No {
   struct No *esq, *dir;
 } No;
 
+typedef struct NoFila {
+  elem_t info; /* chave */
+  struct NoFila *prox;
+} NoFila;
+
 typedef No* Arvore;
 
 No *arv(elem_t c, No* esq, No* dir);
@@ -27,7 +32,8 @@ int verifica(Arvore p);
 int _verifica(Arvore p, int min, int max);
 
 /* Retorna todos os nohs com valores entre min e max dentro da �rvore p*/
-int busca_por_intervalo(Arvore p, int min, int max, elem_t intervalo []);
+//int busca_por_intervalo(Arvore p, int min, int max, elem_t intervalo []);
+int busca_por_intervalo(Arvore p, int min, int max, NoFila *intervalo);
 
 int retorn_ultima_posicao(elem_t  vetor[]);
 
