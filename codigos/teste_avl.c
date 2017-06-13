@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include "avl.h"
+#include "fila.c"
+#include "avl.c"
 
 int main() {
 	// Variáveis para controle da duracao da ordenação
@@ -13,9 +14,8 @@ int main() {
 			menor=0;
 
 	Arvore avl;
-
+	Fila fila;
 	//printf("Teste avl\n");
-	cria_arvore(&avl);
 	//printf("arvore iniciada\n");
 
 	/*TIMER*/
@@ -24,6 +24,7 @@ int main() {
 
 	while(1) {
 		cria_arvore(&avl);
+		initFila(&fila);
 		scanf("%d", &quantidade_entradas);
 		printf("Quantidade de entradas: %d\n", quantidade_entradas);
 
@@ -65,7 +66,11 @@ int main() {
 			}
 
 			printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
-			busca_por_intervalo(avl, menor, maior); //decidir retorno da funcao e exibir antes da proxima iteração do for
+			busca_por_intervalo(avl, menor, maior, &fila); //decidir retorno da funcao e exibir antes da proxima iteração do for
+
+			while(!isVazia(&fila)) {
+				printf("%d ", pop(&fila));
+			}
 		}
 
 			printf("\n");

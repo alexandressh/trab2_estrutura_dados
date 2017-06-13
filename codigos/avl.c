@@ -7,11 +7,10 @@
 #include <limits.h>
 #include "avl.h"
 
-#define MAX 15000
-
 int retorneBalanceamento(No *n) {
     return n == NULL ? 0 : n->fatorBalanceamento;
 }
+
 int maior(int a, int b) {
     return (a > b)? a : b;
 }
@@ -20,7 +19,7 @@ void cria_arvore(Arvore *p) {
     *p = NULL;
 }
 
-struct No* novoNo(elem_t valor) {
+No * novoNo(elem_t valor) {
     struct No* noh = (struct No*) malloc(sizeof(struct No));
     noh->info = valor;
     noh->esq = NULL;
@@ -142,14 +141,13 @@ int _verifica(Arvore p, int min, int max) {
 	return _verifica(p->esq, min, p->info-1) && _verifica(p->dir, p->info+1, max);
 }
 
-int busca_por_intervalo(Arvore p, int min, int max) {
+int busca_por_intervalo(Arvore p, int min, int max, Fila * fila) {
 	if (p != NULL) {
-		busca_por_intervalo(p->esq, min, max);
+		busca_por_intervalo(p->esq, min, max, fila);
 		if(p->info >= min && p->info <= max) {
-			printf("%d ", p->info);
-			//return p->info; //encontrar uma forma de retornar para o main ao invez de apenas printar os valores (armazenar em uma pilha ou fila)
+      push(fila, p->info);
 		}
-		busca_por_intervalo(p->dir, min, max);
+		busca_por_intervalo(p->dir, min, max, fila);
 	}
 	return 0;
 }

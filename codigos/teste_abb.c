@@ -39,8 +39,6 @@ int main(){
 		if(quantidade_entradas == 0 && casos_de_busca == 0)
 			break;
 
-		elem_t intervalo[quantidade_entradas];
-
 		//printf("Iniciando insercao...\n");
 		while(quantidade_entradas > 0) {
 			scanf("%d", &valor);
@@ -69,9 +67,17 @@ int main(){
 				menor = maior;
 				maior = tmp;
 			}
+			NoFila *intervalo = (NoFila *) malloc(sizeof(NoFila));
+			intervalo->prox = NULL;
 
 			printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
 			busca_por_intervalo(abb, menor, maior, intervalo); //decidir retorno da funcao e exibir antes da proxima itera��o do for
+
+			intervalo = intervalo->prox;
+			while(intervalo != NULL) {
+				printf("%d ", intervalo->info);
+				intervalo = intervalo->prox;
+			}
 		}
 
 		printf("\n");
