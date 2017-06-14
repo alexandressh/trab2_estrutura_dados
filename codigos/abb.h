@@ -37,4 +37,6 @@ int busca_por_intervalo(Arvore p, int min, int max, Fila * intervalo);
 
 int retorn_ultima_posicao(elem_t  vetor[]);
 
+void libera(Arvore p);
+
 #endif

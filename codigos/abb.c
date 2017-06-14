@@ -10,7 +10,7 @@
 #define MAX 15000
 
 
-No *arv(elem_t c, No *esq, No *dir) {
+No * arv(elem_t c, No *esq, No *dir) {
     No* aux = malloc(sizeof(No));
 
     aux->info = c;
@@ -92,4 +92,14 @@ int retorn_ultima_posicao(elem_t vetor []) {
     }
   }*/
   return 0;
+}
+
+
+void libera(Arvore p) {
+  if (p != NULL) {
+      libera(p->esq);
+      libera(p->dir);
+      printf("%d ", p->info);
+      free(p);
+  }
 }

@@ -15,7 +15,8 @@ int main(){
 			casos_de_busca=0,
 			valor=0,
 			maior=0,
-			menor=0;
+			menor=0,
+			i=0;
 
 	Arvore abb;
 	Fila fila;
@@ -60,7 +61,7 @@ int main(){
 
 		// /*INICIANDO BUSCAS*/
 		// printf("insercao terminada, iniciando casos de busca\n");
-		for(int i=0; i < casos_de_busca; i++) {
+		for(i = 0; i < casos_de_busca; i++) {
 			scanf("%d", &menor);
 			scanf("%d", &maior);
 
@@ -79,6 +80,7 @@ int main(){
 		}
 
 		printf("\n");
+		libera(abb);
 	}
 	return 0;
 }

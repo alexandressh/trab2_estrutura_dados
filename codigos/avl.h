@@ -41,4 +41,6 @@ int maior(int a, int b);
 
 int retorn_ultima_posicao(elem_t  vetor[]);
 
+void libera(Arvore p);
+
 #endif

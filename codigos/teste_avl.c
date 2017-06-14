@@ -74,6 +74,7 @@ int main() {
 		}
 
 			printf("\n");
+			libera(avl);
 		}
 
 	return 0;
