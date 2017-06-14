@@ -70,22 +70,14 @@ int _verifica(Arvore p, int min, int max) {
 	return _verifica(p->esq, min, p->info-1) && _verifica(p->dir, p->info+1, max);
 }
 
-int busca_por_intervalo(Arvore p, int min, int max, NoFila *intervalo) {
+int busca_por_intervalo(Arvore p, int min, int max, Fila * intervalo) {
 	if (p != NULL) {
 		busca_por_intervalo(p->esq, min, max, intervalo);
-		if(p->info >= min && p->info <= max) {
-			//printf("%d ", p->info);
 
-			while(intervalo->prox != NULL) {
-				intervalo = intervalo->prox;
-			}
-			NoFila *aux;
-			aux = malloc(sizeof(NoFila));
-			aux->info = p->info;
-			aux->prox = NULL;
-			intervalo->prox = aux;
-			//return p->info; //encontrar uma forma de retornar para o main ao inves de apenas printar os valores (armazenar em uma pilha ou fila)
+		if(p->info >= min && p->info <= max) {
+      push(intervalo, p->info);
 		}
+
 		busca_por_intervalo(p->dir, min, max, intervalo);
 	}
 	return 0;

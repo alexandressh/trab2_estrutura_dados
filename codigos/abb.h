@@ -33,7 +33,7 @@ int _verifica(Arvore p, int min, int max);
 
 /* Retorna todos os nohs com valores entre min e max dentro da �rvore p*/
 //int busca_por_intervalo(Arvore p, int min, int max, elem_t intervalo []);
-int busca_por_intervalo(Arvore p, int min, int max, NoFila *intervalo);
+int busca_por_intervalo(Arvore p, int min, int max, Fila * intervalo);
 
 int retorn_ultima_posicao(elem_t  vetor[]);
 

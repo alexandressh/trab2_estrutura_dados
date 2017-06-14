@@ -1,0 +1,17 @@
+ENTRADA
+Arvore com 190 numeros
+Dois intervalos especificados:
+      Entre 1 e 50: X numeros dentro do intervalo
+      Entre 22 e 70: X numeros dentro do intervalo
+
+SAIDA
+ABB
+	Tempo de execução:
+	Tempo de CPU:
+	Memoria:
+
+
+AVL
+	Tempo de execução:
+	Tempo de CPU:
+	Memoria:

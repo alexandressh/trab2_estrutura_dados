@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include "abb.h"
+#include "fila.c"
+#include "abb.c"
 
 int main(){
 	// Vari�veis para controle da duracao da ordena��o
@@ -17,7 +18,7 @@ int main(){
 			menor=0;
 
 	Arvore abb;
-
+	Fila fila;
 	//printf("Teste abb\n");
 	cria_arvore(&abb);
 	//printf("arvore iniciada\n");
@@ -28,6 +29,7 @@ int main(){
 
 	while(1) {
 		cria_arvore(&abb);
+		initFila(&fila);
 
 		scanf("%d", &quantidade_entradas);
 		printf("Quantidade de entradas: %d\n", quantidade_entradas);
@@ -67,16 +69,12 @@ int main(){
 				menor = maior;
 				maior = tmp;
 			}
-			NoFila *intervalo = (NoFila *) malloc(sizeof(NoFila));
-			intervalo->prox = NULL;
 
 			printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
-			busca_por_intervalo(abb, menor, maior, intervalo); //decidir retorno da funcao e exibir antes da proxima itera��o do for
+			busca_por_intervalo(abb, menor, maior, &fila); //decidir retorno da funcao e exibir antes da proxima itera��o do for
 
-			intervalo = intervalo->prox;
-			while(intervalo != NULL) {
-				printf("%d ", intervalo->info);
-				intervalo = intervalo->prox;
+			while(!isVazia(&fila)) {
+				printf("%d ", pop(&fila));
 			}
 		}
 

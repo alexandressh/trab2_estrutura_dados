@@ -144,9 +144,11 @@ int _verifica(Arvore p, int min, int max) {
 int busca_por_intervalo(Arvore p, int min, int max, Fila * fila) {
 	if (p != NULL) {
 		busca_por_intervalo(p->esq, min, max, fila);
+
 		if(p->info >= min && p->info <= max) {
       push(fila, p->info);
 		}
+
 		busca_por_intervalo(p->dir, min, max, fila);
 	}
 	return 0;
