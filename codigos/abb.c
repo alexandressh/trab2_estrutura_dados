@@ -99,7 +99,6 @@ void libera(Arvore p) {
   if (p != NULL) {
       libera(p->esq);
       libera(p->dir);
-      printf("%d ", p->info);
       free(p);
   }
 }

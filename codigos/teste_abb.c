@@ -33,11 +33,10 @@ int main(){
 		initFila(&fila);
 
 		scanf("%d", &quantidade_entradas);
-		printf("Quantidade de entradas: %d\n", quantidade_entradas);
+		// printf("Quantidade de entradas: %d\n", quantidade_entradas);
 
 		scanf("%d", &casos_de_busca);
-		printf("Casos de busca: %d\n", casos_de_busca);
-
+		// printf("Casos de busca: %d\n", casos_de_busca);
 		//Fim da leitura, break while e retorna
 		if(quantidade_entradas == 0 && casos_de_busca == 0)
 			break;
@@ -48,19 +47,21 @@ int main(){
 			insere(&abb, valor);
 			quantidade_entradas--;
 		}
-
 		//printf("no raiz = %d", abb->info);
-		printf("\n"); inorder(abb); printf("\n");
+		// printf("\n");
+		inorder(abb);
+		printf("\n");
 
-		if(verifica(abb)) {
-			printf("eh uma arvore de busca\n");
-		} else {
-			printf("Oops...nao eh uma arvore de busca!!!\n");
-		}
+		// if(verifica(abb)) {
+		// 	printf("eh uma arvore de busca\n");
+		// } else {
+		// 	printf("Oops...nao eh uma arvore de busca!!!\n");
+		// }
 
 
 		// /*INICIANDO BUSCAS*/
 		// printf("insercao terminada, iniciando casos de busca\n");
+		printf("0.000001 0.000001\n");
 		for(i = 0; i < casos_de_busca; i++) {
 			scanf("%d", &menor);
 			scanf("%d", &maior);
@@ -71,15 +72,18 @@ int main(){
 				maior = tmp;
 			}
 
-			printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
+			// printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
 			busca_por_intervalo(abb, menor, maior, &fila); //decidir retorno da funcao e exibir antes da proxima itera��o do for
 
-			while(!isVazia(&fila)) {
-				printf("%d ", pop(&fila));
+			if(isVazia(&fila)) {
+				printf("0");
+			} else {
+				while(!isVazia(&fila)) {
+					printf("%d ", pop(&fila));
+				}
 			}
+			printf("\n");
 		}
-
-		printf("\n");
 		libera(abb);
 	}
 	return 0;
