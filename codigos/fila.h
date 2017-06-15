@@ -1,6 +1,6 @@
 #ifndef _FILA
 
-#define MAX 15000
+#define MAX 99999
 typedef int elem_t;
 
 typedef struct Fila {

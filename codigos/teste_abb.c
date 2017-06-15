@@ -19,7 +19,7 @@ int main(){
 			menor=0,
 			i=0;
 
-	long inicio_busca_abb,
+	double inicio_busca_abb,
 			 fim_busca_abb,
 			 inicio_busca_avl,
 			 fim_busca_avl;

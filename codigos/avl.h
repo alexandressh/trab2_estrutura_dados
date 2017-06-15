@@ -3,7 +3,6 @@
  */
 
 #ifndef _AVL
-#define MAX 15000
 
 typedef int elem_t;
 

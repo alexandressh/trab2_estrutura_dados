@@ -7,8 +7,6 @@
 #include <limits.h>
 #include "abb.h"
 
-#define MAX 15000
-
 void cria_arvore_abb(Arvore_abb *p) {
     *p = NULL;
 }
