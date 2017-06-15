@@ -6,11 +6,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include "timer.h"
 #include "fila.c"
 #include "abb.c"
+#include "avl.c"
 
 int main(){
-	// Vari�veis para controle da duracao da ordena��o
 	int quantidade_entradas=0,
 			casos_de_busca=0,
 			valor=0,
@@ -18,50 +19,47 @@ int main(){
 			menor=0,
 			i=0;
 
-	Arvore abb;
-	Fila fila;
-	//printf("Teste abb\n");
-	cria_arvore(&abb);
-	//printf("arvore iniciada\n");
+	long inicio_busca_abb,
+			 fim_busca_abb,
+			 inicio_busca_avl,
+			 fim_busca_avl;
 
-	/*TIMER*/
-	struct timeval start, end;
-	long long mtimeDim, mtimeEst, seconds, useconds;
+	Arvore_abb abb;
+	Arvore_avl avl;
+	Fila filaAbb;
+	Fila filaAvl;
 
 	while(1) {
-		cria_arvore(&abb);
-		initFila(&fila);
+		cria_arvore_abb(&abb);
+		cria_arvore_avl(&avl);
+		initFila(&filaAbb);
+		initFila(&filaAvl);
 
 		scanf("%d", &quantidade_entradas);
-		// printf("Quantidade de entradas: %d\n", quantidade_entradas);
-
 		scanf("%d", &casos_de_busca);
-		// printf("Casos de busca: %d\n", casos_de_busca);
-		//Fim da leitura, break while e retorna
+
 		if(quantidade_entradas == 0 && casos_de_busca == 0)
 			break;
 
-		//printf("Iniciando insercao...\n");
 		while(quantidade_entradas > 0) {
 			scanf("%d", &valor);
-			insere(&abb, valor);
+			insercao_abb(&abb, valor);
+			insercao_avl(&avl, valor);
 			quantidade_entradas--;
 		}
-		//printf("no raiz = %d", abb->info);
-		// printf("\n");
-		inorder(abb);
+
+		percuso_em_ordem_abb(abb);
+		//percuso_em_ordem_avl(avl);
 		printf("\n");
 
-		// if(verifica(abb)) {
-		// 	printf("eh uma arvore de busca\n");
-		// } else {
-		// 	printf("Oops...nao eh uma arvore de busca!!!\n");
-		// }
+		if(!verifica_se_eh_arvore_de_busca_abb(abb)) {
+			return 1;
+		}
+		if(!verifica_se_eh_arvore_de_busca_avl(avl)) {
+			return 1;
+		}
 
-
-		// /*INICIANDO BUSCAS*/
-		// printf("insercao terminada, iniciando casos de busca\n");
-		printf("0.000001 0.000001\n");
+		/*INICIANDO BUSCAS*/
 		for(i = 0; i < casos_de_busca; i++) {
 			scanf("%d", &menor);
 			scanf("%d", &maior);
@@ -72,19 +70,36 @@ int main(){
 				maior = tmp;
 			}
 
-			// printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
-			busca_por_intervalo(abb, menor, maior, &fila); //decidir retorno da funcao e exibir antes da proxima itera��o do for
+			GET_TIME(inicio_busca_abb);
+			busca_por_intervalo_abb(abb, menor, maior, &filaAbb);
+			GET_TIME(fim_busca_abb);
 
-			if(isVazia(&fila)) {
+			GET_TIME(inicio_busca_avl);
+			busca_por_intervalo_avl(avl, menor, maior, &filaAvl);
+			GET_TIME(fim_busca_avl);
+
+			printf("%7.6f ", fim_busca_abb - inicio_busca_abb);
+			printf("%7.6f\n", fim_busca_avl - inicio_busca_avl);
+
+			if(isVazia(&filaAbb)) {
 				printf("0");
 			} else {
-				while(!isVazia(&fila)) {
-					printf("%d ", pop(&fila));
+				while(!isVazia(&filaAbb)) {
+					printf("%d ", pop(&filaAbb));
+					pop(&filaAvl);
 				}
 			}
+			//Nao requerido na especificacao - fila da avl esvaziada juntamente com a da abb
+			// if(isVazia(&filaAvl)) {
+			// 	printf("0");
+			// } else {
+			// 	while(!isVazia(&filaAvl)) {
+			// 		printf("%d ", pop(&filaAvl));
+			// 	}
+			// }
 			printf("\n");
 		}
-		libera(abb);
+		libera_abb(abb);
 	}
 	return 0;
 }

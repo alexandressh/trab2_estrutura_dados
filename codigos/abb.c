@@ -9,36 +9,25 @@
 
 #define MAX 15000
 
-
-No * arv(elem_t c, No *esq, No *dir) {
-    No* aux = malloc(sizeof(No));
-
-    aux->info = c;
-    aux->esq = esq;
-    aux->dir = dir;
-
-    return aux;
-}
-
-void cria_arvore(Arvore *p) {
+void cria_arvore_abb(Arvore_abb *p) {
     *p = NULL;
 }
 
-void inorder(Arvore p) {
+void percuso_em_ordem_abb(Arvore_abb p) {
     if (p != NULL) {
-        inorder(p->esq);
+        percuso_em_ordem_abb(p->esq);
         printf("%d ", p->info);
-        inorder(p->dir);
+        percuso_em_ordem_abb(p->dir);
     }
 }
 
 /* Retorna 0 se a chave for repetida */
-int insere(Arvore *p, int chave) {
-    No *aux;
+int insercao_abb(Arvore_abb *p, int chave) {
+    NoAbb *aux;
 
     if (*p == NULL) {
 		//colocar isso em um metodo 'cria_noh'
-        aux =  malloc(sizeof(No));
+        aux =  malloc(sizeof(NoAbb));
         aux->info = chave;
         aux->esq = NULL;
         aux->dir = NULL;
@@ -48,57 +37,45 @@ int insere(Arvore *p, int chave) {
     }
 
     if ((*p)->info > chave) {
-        return insere(&(*p)->esq, chave);
+        return insercao_abb(&(*p)->esq, chave);
     } else if ((*p)->info < chave) {
-        return insere(&(*p)->dir, chave);
+        return insercao_abb(&(*p)->dir, chave);
     }
 
     return 0; // achou
 }
 
 /* Verifica se p é uma árvore de busca */
-int verifica(Arvore p) {
-	return _verifica(p, INT_MIN, INT_MAX);
+int verifica_se_eh_arvore_de_busca_abb(Arvore_abb p) {
+	return _verifica_abb(p, INT_MIN, INT_MAX);
 }
 
-int _verifica(Arvore p, int min, int max) {
+int _verifica_abb(Arvore_abb p, int min, int max) {
 	if (p == NULL)
 		return 1;
 	if (p->info < min || p->info > max)
 		return 0;
 
-	return _verifica(p->esq, min, p->info-1) && _verifica(p->dir, p->info+1, max);
+	return _verifica_abb(p->esq, min, p->info-1) && _verifica_abb(p->dir, p->info+1, max);
 }
 
-int busca_por_intervalo(Arvore p, int min, int max, Fila * intervalo) {
+int busca_por_intervalo_abb(Arvore_abb p, int min, int max, Fila * intervalo) {
 	if (p != NULL) {
-		busca_por_intervalo(p->esq, min, max, intervalo);
+		busca_por_intervalo_abb(p->esq, min, max, intervalo);
 
 		if(p->info >= min && p->info <= max) {
       push(intervalo, p->info);
 		}
 
-		busca_por_intervalo(p->dir, min, max, intervalo);
+		busca_por_intervalo_abb(p->dir, min, max, intervalo);
 	}
 	return 0;
 }
 
-
-int retorn_ultima_posicao(elem_t vetor []) {
-   /*int tam = (int) sizeof(vetor);
-  for(int i = 0; i < tam; i++) {
-    if(vetor[i] == NULL) {
-      return i;
-    }
-  }*/
-  return 0;
-}
-
-
-void libera(Arvore p) {
+void libera_abb(Arvore_abb p) {
   if (p != NULL) {
-      libera(p->esq);
-      libera(p->dir);
+      libera_abb(p->esq);
+      libera_abb(p->dir);
       free(p);
   }
 }

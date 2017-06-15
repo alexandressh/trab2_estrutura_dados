@@ -15,7 +15,7 @@ int maior(int a, int b) {
     return (a > b)? a : b;
 }
 
-void cria_arvore(Arvore *p) {
+void cria_arvore_avl(Arvore_avl *p) {
     *p = NULL;
 }
 
@@ -28,16 +28,16 @@ No * novoNo(elem_t valor) {
     return noh;
 }
 
-void inorder(Arvore p) {
+void percuso_em_ordem_avl(Arvore_avl p) {
     if (p != NULL) {
-        inorder(p->esq);
+        percuso_em_ordem_avl(p->esq);
         printf("%d ", p->info);
-        inorder(p->dir);
+        percuso_em_ordem_avl(p->dir);
     }
 }
 
 /* Retorna 0 se a chave for repetida */
-int insere(Arvore *p, int chave) {
+int insercao_avl(Arvore_avl *p, int chave) {
 	if(*p == NULL) {
 		//printf("arvore vazia, iniciando arvore...\n");
 		No* noh = novoNo(chave);
@@ -57,7 +57,7 @@ int insere(Arvore *p, int chave) {
 No* _insere(No *p, int chave) {
 
 	//funcao auxiliar
-	struct No *rotacaoEsquerda(struct No *pB) {
+	struct No *rotacaoEsquerda(No *pB) {
 		struct No *pA = pB->dir;
 		struct No *aux = pA->esq;
 
@@ -72,7 +72,7 @@ No* _insere(No *p, int chave) {
 		return pA;
 	}
 	//funcoes auxiliar
-	No *rotacaoDireita(struct No *pA) {
+	No *rotacaoDireita(No *pA) {
 		struct No *pB = pA->esq;
 		struct No *aux = pB->dir;
 
@@ -128,11 +128,11 @@ No* _insere(No *p, int chave) {
 }
 
 /* Verifica se p é uma árvore de busca */
-int verifica(Arvore p) {
+int verifica_se_eh_arvore_de_busca_avl(Arvore_avl p) {
 	return _verifica(p, INT_MIN, INT_MAX);
 }
 
-int _verifica(Arvore p, int min, int max) {
+int _verifica(Arvore_avl p, int min, int max) {
 	if (p == NULL)
 		return 1;
 	if (p->info < min || p->info > max)
@@ -141,24 +141,23 @@ int _verifica(Arvore p, int min, int max) {
 	return _verifica(p->esq, min, p->info-1) && _verifica(p->dir, p->info+1, max);
 }
 
-int busca_por_intervalo(Arvore p, int min, int max, Fila * fila) {
+int busca_por_intervalo_avl(Arvore_avl p, int min, int max, Fila * fila) {
 	if (p != NULL) {
-		busca_por_intervalo(p->esq, min, max, fila);
+		busca_por_intervalo_avl(p->esq, min, max, fila);
 
 		if(p->info >= min && p->info <= max) {
       push(fila, p->info);
 		}
 
-		busca_por_intervalo(p->dir, min, max, fila);
+		busca_por_intervalo_avl(p->dir, min, max, fila);
 	}
 	return 0;
 }
 
-void libera(Arvore p) {
+void libera_avl(Arvore_avl p) {
   if (p != NULL) {
-      libera(p->esq);
-      libera(p->dir);
-      printf("%d ", p->info);
+      libera_avl(p->esq);
+      libera_avl(p->dir);
       free(p);
   }
 }

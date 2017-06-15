@@ -6,37 +6,28 @@
 
 typedef int elem_t;
 
-typedef struct No {
+typedef struct NoAbb {
   elem_t info; /* chave */
-  struct No *esq, *dir;
-} No;
+  struct NoAbb *esq, *dir;
+} NoAbb;
 
-typedef struct NoFila {
-  elem_t info; /* chave */
-  struct NoFila *prox;
-} NoFila;
+typedef NoAbb * Arvore_abb;
 
-typedef No* Arvore;
+void cria_arvore_abb(Arvore_abb *p);
 
-No *arv(elem_t c, No* esq, No* dir);
-
-void cria_arvore(Arvore *p);
-
-void inorder(Arvore p);
+void percuso_em_ordem_abb(Arvore_abb p);
 
 /* Retorna 0 se a chave for repetida */
-int insere(Arvore *p, int chave);
+int insercao_abb(Arvore_abb *p, int chave);
 
 /* Verifica se p � uma �rvore de busca */
-int verifica(Arvore p);
-int _verifica(Arvore p, int min, int max);
+int verifica_se_eh_arvore_de_busca_abb(Arvore_abb p);
+int _verifica_abb(Arvore_abb p, int min, int max);
 
 /* Retorna todos os nohs com valores entre min e max dentro da �rvore p*/
 //int busca_por_intervalo(Arvore p, int min, int max, elem_t intervalo []);
-int busca_por_intervalo(Arvore p, int min, int max, Fila * intervalo);
+int busca_por_intervalo_abb(Arvore_abb p, int min, int max, Fila * intervalo);
 
-int retorn_ultima_posicao(elem_t  vetor[]);
-
-void libera(Arvore p);
+void libera_abb(Arvore_abb p);
 
 #endif

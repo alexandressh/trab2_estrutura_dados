@@ -14,7 +14,7 @@ int main() {
 			menor=0,
 			i=0;
 
-	Arvore avl;
+	Arvore_avl avl;
 	Fila fila;
 	//printf("Teste avl\n");
 	//printf("arvore iniciada\n");
@@ -24,7 +24,7 @@ int main() {
 	long long mtimeDim, mtimeEst, seconds, useconds;
 
 	while(1) {
-		cria_arvore(&avl);
+		cria_arvore_avl(&avl);
 		initFila(&fila);
 		scanf("%d", &quantidade_entradas);
 		printf("Quantidade de entradas: %d\n", quantidade_entradas);
@@ -40,15 +40,15 @@ int main() {
 		while(quantidade_entradas > 0) {
 				scanf("%d", &valor);
 				//printf("inserindo valor: %d\n", valor);
-				insere(&avl, valor);
+				insercao_avl(&avl, valor);
 				quantidade_entradas--;
 				// printf("no raiz = %d", avl->info);
 		}
 
 
-		printf("\n"); inorder(avl); printf("\n");
+		printf("\n"); percuso_em_ordem_avl(avl); printf("\n");
 
-		if(verifica(avl)) {
+		if(verifica_se_eh_arvore_de_busca_avl(avl)) {
 			printf("eh uma arvore de busca\n");
 		} else {
 			printf("Oops...nao eh uma arvore de busca!!!\n");
@@ -67,7 +67,7 @@ int main() {
 			}
 
 			printf("\nCaso de busca %d: buscando valores entre %d e %d\n", i+1, menor, maior);
-			busca_por_intervalo(avl, menor, maior, &fila); //decidir retorno da funcao e exibir antes da proxima iteração do for
+			busca_por_intervalo_avl(avl, menor, maior, &fila); //decidir retorno da funcao e exibir antes da proxima iteração do for
 
 			while(!isVazia(&fila)) {
 				printf("%d ", pop(&fila));
@@ -75,7 +75,7 @@ int main() {
 		}
 
 			printf("\n");
-			libera(avl);
+			libera_avl(avl);
 		}
 
 	return 0;
