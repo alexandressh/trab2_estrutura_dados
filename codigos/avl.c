@@ -37,14 +37,12 @@ void percuso_em_ordem_avl(Arvore_avl p) {
 }
 
 /* Retorna 0 se a chave for repetida */
-int insercao_avl(Arvore_avl *p, int chave) {
+int insercao_avl(Arvore_avl *p, int chave, int * rot, int * rotDupla) {
 	if(*p == NULL) {
-		//printf("arvore vazia, iniciando arvore...\n");
 		No* noh = novoNo(chave);
 		*p = noh;
 	} else {
-		//printf("adicionando novo noh\n");
-		No* result = _insere(*p, chave);
+		No* result = _insere(*p, chave, rot, rotDupla);
 		if(result == NULL) {
 			return 0;
 		} else {
@@ -54,10 +52,10 @@ int insercao_avl(Arvore_avl *p, int chave) {
 	return 1;
 }
 
-No* _insere(No *p, int chave) {
+No* _insere(No *p, int chave, int * rot, int * rotDupla) {
 
 	//funcao auxiliar
-	struct No *rotacaoEsquerda(No *pB) {
+	No *rotacaoEsquerda(No *pB) {
 		struct No *pA = pB->dir;
 		struct No *aux = pA->esq;
 
@@ -91,9 +89,9 @@ No* _insere(No *p, int chave) {
 		return novoNo(chave);
 
     if (chave < p->info) {
-		p->esq  = _insere(p->esq, chave);
+		p->esq  = _insere(p->esq, chave, rot, rotDupla);
     } else if (chave > p->info) {
-		p->dir = _insere(p->dir, chave);
+		p->dir = _insere(p->dir, chave, rot, rotDupla);
     } else { //chave ja existe
 		return NULL;
 	}
@@ -102,19 +100,23 @@ No* _insere(No *p, int chave) {
 
 	//verifica balanceamento
     int balanceamento = (p == NULL ? 0 : (retorneBalanceamento(p->esq) - retorneBalanceamento(p->dir)));
-	if (balanceamento > 1 && chave < p->esq->info) { // Left Left Case
-        return rotacaoDireita(p);
-	} else if (balanceamento < -1 && chave > p->dir->info) { // Right Right Case
-        return rotacaoEsquerda(p);
-	} else if (balanceamento > 1 && chave > p->esq->info) { // Left Right Case
-        p->esq =  rotacaoEsquerda(p->esq);
-        return rotacaoDireita(p);
-    } else if (balanceamento < -1 && chave < p->dir->info) { // Right Left Case
-        p->dir = rotacaoDireita(p->dir);
-        return rotacaoEsquerda(p);
-    } else {
-		//não precisa balancear
-	}
+  	if (balanceamento > 1 && chave < p->esq->info) { // Left Left Case
+          (*rot)++;
+          return rotacaoDireita(p);
+  	} else if (balanceamento < -1 && chave > p->dir->info) { // Right Right Case
+          (*rot)++;
+          return rotacaoEsquerda(p);
+  	} else if (balanceamento > 1 && chave > p->esq->info) { // Left Right Case
+          (*rotDupla)++;
+          p->esq =  rotacaoEsquerda(p->esq);
+          return rotacaoDireita(p);
+      } else if (balanceamento < -1 && chave < p->dir->info) { // Right Left Case
+          (*rotDupla)++;
+          p->dir = rotacaoDireita(p->dir);
+          return rotacaoEsquerda(p);
+      } else {
+  		    //não precisa balancear
+  	  }
 
 	/*
 		obs.: implementação atual usa noh folha como 1 ao invés de 0

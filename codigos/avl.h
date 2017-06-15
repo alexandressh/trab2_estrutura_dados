@@ -23,8 +23,8 @@ void cria_arvore_avl(Arvore_avl *p);
 void percuso_em_ordem_avl(Arvore_avl p);
 
 /* Retorna 0 se a chave for repetida */
-int  insercao_avl(Arvore_avl *p, int chave);
-No* _insere(No *p, int chave);
+int insercao_avl(Arvore_avl *p, int chave, int * rot, int * rotDupla);
+No* _insere(No *p, int chave, int * rot, int * rotDupla);
 
 /* Verifica se p � uma �rvore de busca */
 int verifica_se_eh_arvore_de_busca_avl(Arvore_avl p);

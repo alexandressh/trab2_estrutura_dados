@@ -13,6 +13,9 @@ int main() {
 			maior=0,
 			menor=0,
 			i=0;
+	int	rot = 0,
+		rotDupla = 0;
+
 
 	Arvore_avl avl;
 	Fila fila;
@@ -40,7 +43,7 @@ int main() {
 		while(quantidade_entradas > 0) {
 				scanf("%d", &valor);
 				//printf("inserindo valor: %d\n", valor);
-				insercao_avl(&avl, valor);
+				insercao_avl(&avl, valor, &rot, &rotDupla);
 				quantidade_entradas--;
 				// printf("no raiz = %d", avl->info);
 		}
