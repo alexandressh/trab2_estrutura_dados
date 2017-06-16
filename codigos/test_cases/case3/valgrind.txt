@@ -1,0 +1,80 @@
+==2902== Memcheck, a memory error detector
+==2902== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==2902== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==2902== Command: ./a.out
+==2902== Parent PID: 2892
+==2902== 
+--2902-- 
+--2902-- Valgrind options:
+--2902--    --leak-check=full
+--2902--    --log-file=./test_cases/case3/teste.in.valgrind
+--2902--    -v
+--2902-- Contents of /proc/version:
+--2902--   Linux version 4.2.0-27-generic (buildd@lgw01-45) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #32~14.04.1-Ubuntu SMP Fri Jan 22 15:32:27 UTC 2016
+--2902-- Arch and hwcaps: X86, LittleEndian, x86-mmxext-sse1-sse2
+--2902-- Page sizes: currently 4096, max supported 4096
+--2902-- Valgrind library directory: /usr/lib/valgrind
+--2902-- Reading syms from /lib/i386-linux-gnu/ld-2.19.so
+--2902--   Considering /lib/i386-linux-gnu/ld-2.19.so ..
+--2902--   .. CRC mismatch (computed 058316e7 wanted ff0271df)
+--2902--   Considering /usr/lib/debug/lib/i386-linux-gnu/ld-2.19.so ..
+--2902--   .. CRC is valid
+--2902-- Reading syms from /home/henrique/trab2_estrutura_dados/codigos/a.out
+--2902-- Reading syms from /usr/lib/valgrind/memcheck-x86-linux
+--2902--   Considering /usr/lib/valgrind/memcheck-x86-linux ..
+--2902--   .. CRC mismatch (computed a1851f40 wanted a7f53555)
+--2902--    object doesn't have a symbol table
+--2902--    object doesn't have a dynamic symbol table
+--2902-- Scheduler: using generic scheduler lock implementation.
+--2902-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==2902== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-2902-by-henrique-on-???
+==2902== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-2902-by-henrique-on-???
+==2902== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-2902-by-henrique-on-???
+==2902== 
+==2902== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==2902== don't want to do, unless you know exactly what you're doing,
+==2902== or are doing some strange experiment):
+==2902==   /usr/lib/valgrind/../../bin/vgdb --pid=2902 ...command...
+==2902== 
+==2902== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==2902==   /path/to/gdb ./a.out
+==2902== and then give GDB the following command
+==2902==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=2902
+==2902== --pid is optional if only one valgrind process is running
+==2902== 
+--2902-- REDIR: 0x4017ed0 (ld-linux.so.2:strlen) redirected to 0x380755e2 (???)
+--2902-- REDIR: 0x4017ce0 (ld-linux.so.2:index) redirected to 0x380755bd (???)
+--2902-- Reading syms from /usr/lib/valgrind/vgpreload_core-x86-linux.so
+--2902--   Considering /usr/lib/valgrind/vgpreload_core-x86-linux.so ..
+--2902--   .. CRC mismatch (computed d3e3f8e8 wanted ff94bb6b)
+--2902--    object doesn't have a symbol table
+--2902-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so
+--2902--   Considering /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so ..
+--2902--   .. CRC mismatch (computed 3a29cef8 wanted 4be4f0fe)
+--2902--    object doesn't have a symbol table
+==2902== WARNING: new redirection conflicts with existing -- ignoring it
+--2902--     old: 0x04017ed0 (strlen              ) R-> (0000.0) 0x380755e2 ???
+--2902--     new: 0x04017ed0 (strlen              ) R-> (2007.0) 0x0402d480 strlen
+--2902-- Reading syms from /lib/i386-linux-gnu/libc-2.19.so
+--2902--   Considering /lib/i386-linux-gnu/libc-2.19.so ..
+--2902--   .. CRC mismatch (computed 61349a52 wanted d7503c04)
+--2902--   Considering /usr/lib/debug/lib/i386-linux-gnu/libc-2.19.so ..
+--2902--   .. CRC is valid
+--2902-- REDIR: 0x40c6de0 (libc.so.6:strnlen) redirected to 0x4024580 (_vgnU_ifunc_wrapper)
+--2902-- REDIR: 0x40c8d90 (libc.so.6:strncasecmp) redirected to 0x4024580 (_vgnU_ifunc_wrapper)
+--2902-- REDIR: 0x40ce710 (libc.so.6:memrchr) redirected to 0x4024580 (_vgnU_ifunc_wrapper)
+--2902-- REDIR: 0x40e1750 (libc.so.6:wcslen) redirected to 0x4024580 (_vgnU_ifunc_wrapper)
+--2902-- REDIR: 0x40c6f90 (libc.so.6:__GI_strrchr) redirected to 0x402ce50 (__GI_strrchr)
+--2902-- REDIR: 0x40c26b0 (libc.so.6:malloc) redirected to 0x402a110 (malloc)
+--2902-- REDIR: 0x40cacd0 (libc.so.6:strchrnul) redirected to 0x4030e50 (strchrnul)
+--2902-- REDIR: 0x40c6d20 (libc.so.6:__GI_strlen) redirected to 0x402d400 (__GI_strlen)
+--2902-- REDIR: 0x40c2c60 (libc.so.6:free) redirected to 0x402b370 (free)
+==2902== 
+==2902== HEAP SUMMARY:
+==2902==     in use at exit: 0 bytes in 0 blocks
+==2902==   total heap usage: 20,000 allocs, 20,000 frees, 280,000 bytes allocated
+==2902== 
+==2902== All heap blocks were freed -- no leaks are possible
+==2902== 
+==2902== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2902== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
