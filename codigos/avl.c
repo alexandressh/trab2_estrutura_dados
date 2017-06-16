@@ -52,52 +52,51 @@ int insercao_avl(Arvore_avl *p, int chave, int * rot, int * rotDupla) {
 	return 1;
 }
 
+No * rotacaoEsquerda(No *pB) {
+  No *pA = pB->dir;
+  No *aux = pA->esq;
+
+  //Rotacionando
+  pA->esq = pB;
+  pB->dir = aux;
+
+  //Atualizando fatores de balanceamento
+  pB->fatorBalanceamento = maior(retorneBalanceamento(pB->esq), retorneBalanceamento(pB->dir))+1;
+  pA->fatorBalanceamento = maior(retorneBalanceamento(pA->esq), retorneBalanceamento(pA->dir))+1;
+
+  return pA;
+}
+
+No * rotacaoDireita(No *pA) {
+  No *pB = pA->esq;
+  No *aux = pB->dir;
+
+  //Rotacionando
+  pB->dir = pA;
+  pA->esq = aux;
+
+  //Atualizando fatores de balanceamento
+  pA->fatorBalanceamento = maior(retorneBalanceamento(pA->esq), retorneBalanceamento(pA->dir))+1;
+  pB->fatorBalanceamento = maior(retorneBalanceamento(pB->esq), retorneBalanceamento(pB->dir))+1;
+
+  return pB;
+}
+
 No* _insere(No *p, int chave, int * rot, int * rotDupla) {
-
-	//funcao auxiliar
-	No *rotacaoEsquerda(No *pB) {
-		struct No *pA = pB->dir;
-		struct No *aux = pA->esq;
-
-		//Rotacionando
-		pA->esq = pB;
-		pB->dir = aux;
-
-		//Atualizando fatores de balanceamento
-		pB->fatorBalanceamento = maior(retorneBalanceamento(pB->esq), retorneBalanceamento(pB->dir))+1;
-		pA->fatorBalanceamento = maior(retorneBalanceamento(pA->esq), retorneBalanceamento(pA->dir))+1;
-
-		return pA;
-	}
-	//funcoes auxiliar
-	No *rotacaoDireita(No *pA) {
-		struct No *pB = pA->esq;
-		struct No *aux = pB->dir;
-
-		//Rotacionando
-		pB->dir = pA;
-		pA->esq = aux;
-
-		//Atualizando fatores de balanceamento
-		pA->fatorBalanceamento = maior(retorneBalanceamento(pA->esq), retorneBalanceamento(pA->dir))+1;
-		pB->fatorBalanceamento = maior(retorneBalanceamento(pB->esq), retorneBalanceamento(pB->dir))+1;
-
-		return pB;
-	}
-
-    if (p == NULL)
-		return novoNo(chave);
+    if (p == NULL) {
+      return novoNo(chave);
+    }
 
     if (chave < p->info) {
-		p->esq  = _insere(p->esq, chave, rot, rotDupla);
+		    p->esq  = _insere(p->esq, chave, rot, rotDupla);
     } else if (chave > p->info) {
-		p->dir = _insere(p->dir, chave, rot, rotDupla);
+		    p->dir = _insere(p->dir, chave, rot, rotDupla);
     } else { //chave ja existe
-		return NULL;
-	}
+		    return NULL;
+	  }
+    
     //atualiza balanceamento do pai do no inserido
-	p->fatorBalanceamento = 1 + maior(retorneBalanceamento(p->esq), retorneBalanceamento(p->dir));
-
+	   p->fatorBalanceamento = 1 + maior(retorneBalanceamento(p->esq), retorneBalanceamento(p->dir));
 	//verifica balanceamento
     int balanceamento = (p == NULL ? 0 : (retorneBalanceamento(p->esq) - retorneBalanceamento(p->dir)));
   	if (balanceamento > 1 && chave < p->esq->info) { // Left Left Case
