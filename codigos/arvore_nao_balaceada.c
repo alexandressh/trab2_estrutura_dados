@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "abb.h"
+#include "arvore_nao_balaceada.h"
 
 void cria_arvore_abb(Arvore_abb *p) {
     *p = NULL;
@@ -14,7 +14,7 @@ void cria_arvore_abb(Arvore_abb *p) {
 void percuso_em_ordem_abb(Arvore_abb p) {
     if (p != NULL) {
         percuso_em_ordem_abb(p->esq);
-        printf("%d ", p->info);
+        printf("%d ", p->indice);
         percuso_em_ordem_abb(p->dir);
     }
 }
@@ -26,7 +26,7 @@ int insercao_abb(Arvore_abb *p, int chave) {
     if (*p == NULL) {
 		//colocar isso em um metodo 'cria_noh'
         aux =  malloc(sizeof(NoAbb));
-        aux->info = chave;
+        aux->indice = chave;
         aux->esq = NULL;
         aux->dir = NULL;
 
@@ -34,9 +34,9 @@ int insercao_abb(Arvore_abb *p, int chave) {
         return 1;
     }
 
-    if ((*p)->info > chave) {
+    if ((*p)->indice > chave) {
         return insercao_abb(&(*p)->esq, chave);
-    } else if ((*p)->info < chave) {
+    } else if ((*p)->indice < chave) {
         return insercao_abb(&(*p)->dir, chave);
     }
 
@@ -51,18 +51,18 @@ int verifica_se_eh_arvore_de_busca_abb(Arvore_abb p) {
 int _verifica_abb(Arvore_abb p, int min, int max) {
 	if (p == NULL)
 		return 1;
-	if (p->info < min || p->info > max)
+	if (p->indice < min || p->indice > max)
 		return 0;
 
-	return _verifica_abb(p->esq, min, p->info-1) && _verifica_abb(p->dir, p->info+1, max);
+	return _verifica_abb(p->esq, min, p->indice-1) && _verifica_abb(p->dir, p->indice+1, max);
 }
 
 int busca_por_intervalo_abb(Arvore_abb p, int min, int max, Fila * intervalo) {
 	if (p != NULL) {
 		busca_por_intervalo_abb(p->esq, min, max, intervalo);
 
-		if(p->info >= min && p->info <= max) {
-      push(intervalo, p->info);
+		if(p->indice >= min && p->indice <= max) {
+      queue(intervalo, p->indice);
 		}
 
 		busca_por_intervalo_abb(p->dir, min, max, intervalo);

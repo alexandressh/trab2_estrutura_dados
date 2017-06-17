@@ -6,14 +6,14 @@ void initFila(Fila * fila) {
 	fila->fim = 0;
 	fila->inicio = 0;
 }
-void push(Fila * fila, elem_t elem) {
+void queue(Fila * fila, elem_t elem) {
 	if(fila->fim < MAX) {
 		fila->valor[fila->fim] = elem;
 		fila->fim++;
 	}
 }
 
-elem_t pop(Fila * fila) {
+elem_t dequeue(Fila * fila) {
 	if(fila->inicio < fila->fim) {
 		return fila->valor[fila->inicio++];
 	}

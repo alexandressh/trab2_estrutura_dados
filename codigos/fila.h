@@ -9,8 +9,8 @@ typedef struct Fila {
 	int fim;
 }Fila;
 
-elem_t pop(Fila * fila);
-void push(Fila * fila, elem_t elem);
+elem_t dequeue(Fila * fila);
+void queue(Fila * fila, elem_t elem);
 void initFila(Fila * fila);
 int isVazia(Fila * fila);
 

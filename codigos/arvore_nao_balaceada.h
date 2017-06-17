@@ -7,7 +7,7 @@
 typedef int elem_t;
 
 typedef struct NoAbb {
-  elem_t info; /* chave */
+  elem_t indice; /* chave */
   struct NoAbb *esq, *dir;
 } NoAbb;
 

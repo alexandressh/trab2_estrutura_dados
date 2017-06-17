@@ -8,8 +8,8 @@
 #include <sys/time.h>
 #include "timer.h"
 #include "fila.c"
-#include "abb.c"
-#include "avl.c"
+#include "arvore_balaceada.c"
+#include "arvore_nao_balaceada.c"
 
 int main(){
 	int quantidade_entradas=0,
@@ -49,7 +49,7 @@ int main(){
 
 		while(quantidade_entradas > 0) {
 			scanf("%d", &valor);
-			insercao_abb(&abb, valor);
+			insercao_abb(&abb	, valor);
 			insercao_avl(&avl, valor, &rot, &rotDupla);
 			quantidade_entradas--;
 		}
@@ -101,9 +101,9 @@ int main(){
 				printf("0");
 			} else {
 				while(!isVazia(&filaAbb)) {
-					// pop(&filaAbb);
-					printf("%d ", pop(&filaAbb));
-					pop(&filaAvl);
+					// dequeue(&filaAbb);
+					printf("%d ", dequeue(&filaAbb));
+					dequeue(&filaAvl);
 				}
 			}
 
@@ -112,12 +112,14 @@ int main(){
 			// 	printf("0");
 			// } else {
 			// 	while(!isVazia(&filaAvl)) {
-			// 		pop(&filaAvl);
-			// 		// printf("%d ", pop(&filaAvl));
+			// 		dequeue(&filaAvl);
+			// 		// printf("%d ", dequeue(&filaAvl));
 			// 	}
 			// }
 			printf("\n");
 		}
+		//Usado para medir a memoria - ja que nao eh possivel utilizar getchar com o redirecionador de stdin
+		// sleep(15);
 		libera_abb(abb);
 		libera_avl(avl);
 	}

@@ -7,7 +7,7 @@
 typedef int elem_t;
 
 typedef struct No {
-  elem_t info; /* chave */
+  elem_t indice; /* chave */
   struct No *esq, *dir;
   int fatorBalanceamento;
 } No;

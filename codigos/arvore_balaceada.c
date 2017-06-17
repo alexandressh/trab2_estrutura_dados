@@ -2,10 +2,12 @@
  * Árvores binárias de busca.
  */
 
+//Adaptado de http://www.geeksforgeeks.org/avl-tree-set-1-insertion/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "avl.h"
+#include "arvore_balaceada.h"
 
 int retorneBalanceamento(No *n) {
     return n == NULL ? 0 : n->fatorBalanceamento;
@@ -21,7 +23,7 @@ void cria_arvore_avl(Arvore_avl *p) {
 
 No * novoNo(elem_t valor) {
     struct No* noh = (struct No*) malloc(sizeof(struct No));
-    noh->info = valor;
+    noh->indice = valor;
     noh->esq = NULL;
     noh->dir = NULL;
     noh->fatorBalanceamento = 1; //noh folha, fator balanceamento = 0
@@ -31,7 +33,7 @@ No * novoNo(elem_t valor) {
 void percuso_em_ordem_avl(Arvore_avl p) {
     if (p != NULL) {
         percuso_em_ordem_avl(p->esq);
-        printf("%d ", p->info);
+        printf("%d ", p->indice);
         percuso_em_ordem_avl(p->dir);
     }
 }
@@ -87,44 +89,35 @@ No* _insere(No *p, int chave, int * rot, int * rotDupla) {
       return novoNo(chave);
     }
 
-    if (chave < p->info) {
+    if (chave < p->indice) {
 		    p->esq  = _insere(p->esq, chave, rot, rotDupla);
-    } else if (chave > p->info) {
+    } else if (chave > p->indice) {
 		    p->dir = _insere(p->dir, chave, rot, rotDupla);
     } else { //chave ja existe
 		    return NULL;
 	  }
-    
+
     //atualiza balanceamento do pai do no inserido
 	   p->fatorBalanceamento = 1 + maior(retorneBalanceamento(p->esq), retorneBalanceamento(p->dir));
 	//verifica balanceamento
     int balanceamento = (p == NULL ? 0 : (retorneBalanceamento(p->esq) - retorneBalanceamento(p->dir)));
-  	if (balanceamento > 1 && chave < p->esq->info) { // Left Left Case
+  	if (balanceamento > 1 && chave < p->esq->indice) { // Left Left Case
           (*rot)++;
           return rotacaoDireita(p);
-  	} else if (balanceamento < -1 && chave > p->dir->info) { // Right Right Case
+  	} else if (balanceamento < -1 && chave > p->dir->indice) { // Right Right Case
           (*rot)++;
           return rotacaoEsquerda(p);
-  	} else if (balanceamento > 1 && chave > p->esq->info) { // Left Right Case
+  	} else if (balanceamento > 1 && chave > p->esq->indice) { // Left Right Case
           (*rotDupla)++;
           p->esq =  rotacaoEsquerda(p->esq);
           return rotacaoDireita(p);
-      } else if (balanceamento < -1 && chave < p->dir->info) { // Right Left Case
+      } else if (balanceamento < -1 && chave < p->dir->indice) { // Right Left Case
           (*rotDupla)++;
           p->dir = rotacaoDireita(p->dir);
           return rotacaoEsquerda(p);
       } else {
   		    //não precisa balancear
   	  }
-
-	/*
-		obs.: implementação atual usa noh folha como 1 ao invés de 0
-		para mudar isso precisaria testar mudando as seguintes linhas:
-
-		24:  return n == NULL ? -1 : n->fatorBalanceamento;
-		39:  noh->fatorBalanceamento = 0;
-		113: int balanceamento = p->fatorBalanceamento;
-	*/
     return p;
 }
 
@@ -136,18 +129,18 @@ int verifica_se_eh_arvore_de_busca_avl(Arvore_avl p) {
 int _verifica(Arvore_avl p, int min, int max) {
 	if (p == NULL)
 		return 1;
-	if (p->info < min || p->info > max)
+	if (p->indice < min || p->indice > max)
 		return 0;
 
-	return _verifica(p->esq, min, p->info-1) && _verifica(p->dir, p->info+1, max);
+	return _verifica(p->esq, min, p->indice-1) && _verifica(p->dir, p->indice+1, max);
 }
 
 int busca_por_intervalo_avl(Arvore_avl p, int min, int max, Fila * fila) {
 	if (p != NULL) {
 		busca_por_intervalo_avl(p->esq, min, max, fila);
 
-		if(p->info >= min && p->info <= max) {
-      push(fila, p->info);
+		if(p->indice >= min && p->indice <= max) {
+      queue(fila, p->indice);
 		}
 
 		busca_por_intervalo_avl(p->dir, min, max, fila);
